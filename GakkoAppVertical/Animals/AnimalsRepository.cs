@@ -20,12 +20,10 @@ public class AnimalsRepository : IAnimalsRepository
         cmd.Connection = connection;
         cmd.CommandText = "SELECT IdAnimal, Name, Description, Category, Area FROM Animal ORDER BY @orderBy";
         cmd.Parameters.AddWithValue("@orderBy", orderBy);
-        
-        var reader = cmd.ExecuteReader();
-        if (!reader.Read())
-            return null;
-        
+
         var animals = new List<Animal>();
+
+        var reader = cmd.ExecuteReader();
         while (reader.Read())
         {
             var animal = new Animal
